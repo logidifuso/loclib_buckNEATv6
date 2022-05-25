@@ -1,0 +1,13 @@
+setup.py
+loclib_buckNEATv6/__init__.py
+loclib_buckNEATv6/local_buck_NEAT.py
+loclib_buckNEATv6.egg-info/PKG-INFO
+loclib_buckNEATv6.egg-info/SOURCES.txt
+loclib_buckNEATv6.egg-info/dependency_links.txt
+loclib_buckNEATv6.egg-info/top_level.txt
+loclib_buckNEATv6/common/__init__.py
+loclib_buckNEATv6/common/configuracion.py
+loclib_buckNEATv6/common/utils.py
+loclib_buckNEATv6/common/visualize.py
+loclib_buckNEATv6/funciones/__init__.py
+loclib_buckNEATv6/funciones/dcdc_converter.py
