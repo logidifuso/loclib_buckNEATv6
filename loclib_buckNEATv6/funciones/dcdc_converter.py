@@ -208,7 +208,7 @@ class BuckClass:
         vout = self.run_buck_simulation_l1a_5i(net)[1]
         error = (vout - self.target_vout)
         error[0:self.steady] = 0
-        error = np.absolute(error)
+        error = np.exp(self.penalty * np.absolute(error))
         error_tot = error.sum() / self.steps
         return np.exp(-error_tot)
 
@@ -281,7 +281,7 @@ class BuckClass:
         vout = self.run_buck_simulation_l1a_5i_pid(net)[1]
         error = (vout - self.target_vout)
         error[0:self.steady] = 0
-        error = np.absolute(error)
+        error = np.exp(self.penalty * np.absolute(error))
         error_tot = error.sum() / self.steps
         return np.exp(-error_tot)
 
@@ -359,7 +359,7 @@ class BuckClass:
         vout = self.run_buck_simulation_l1a_6i(net)[1]
         error = (vout - self.target_vout)
         error[0:self.steady] = 0
-        error = np.absolute(error)
+        error = np.exp(self.penalty * np.absolute(error))
         error_tot = error.sum() / self.steps
         return np.exp(-error_tot)
 
@@ -432,7 +432,7 @@ class BuckClass:
         vout = self.run_buck_simulation_l1a_7i(net)[1]
         error = (vout - self.target_vout)
         error[0:self.steady] = 0
-        error = np.absolute(error)
+        error = np.exp(self.penalty * np.absolute(error))
         error_tot = error.sum() / self.steps
         return np.exp(-error_tot)
 
