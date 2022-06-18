@@ -280,7 +280,7 @@ class BuckClass:
         disminuye tendiendo a cero cuando el error tiende infinito
         """
         vout = self.run_buck_simulation_l1a_5i(net)[1]
-        error = (vout - self.target_vout)
+        error = np.absolute(vout - self.target_vout)
         error[0:self.steady] = 0
         error = np.greater(error, self.tolerancia) * (self.penalty - 1) * error + error
         error_tot = error.sum() / self.steps
