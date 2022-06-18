@@ -181,7 +181,7 @@ class BuckClass:
             return func
 
     # --------------------------------------------------------------------------------- #
-    # -------------------------- Level 1a - l1a_5i    ------------------------------------ #
+    # ----------- Level 1a - l1a_5i exponential fitness penalty    -------------------- #
     # --------------------------------------------------------------------------------- #
 
     def eval_genomes_mp_buck_l1a_5i(self, genomes, config):
@@ -252,6 +252,45 @@ class BuckClass:
     def plot_respuesta_buck_l1a_5i(self, net, tinic=0, tfinal=None, view=False, filename='salida.svg'):
         simul_results = self.run_buck_simulation_l1a_5i(net)
         self.plot_respuesta_buck_l1(simul_results, tinic, tfinal, view, filename)
+
+
+    # --------------------------------------------------------------------------------- #
+    # -------------- Level 1a - l1a_5i_lin linear fitness penalty    ---------------------- #
+    # --------------------------------------------------------------------------------- #
+
+    def eval_genomes_mp_buck_l1a_5i_lin(self, genomes, config):
+
+        net = neat.nn.FeedForwardNetwork.create(genomes, config)
+        genomes.fitness = BuckClass.fitness_buck_l1a_5i_lin(self, net)
+        return genomes.fitness
+
+    def eval_genomes_single_buck_l1a_5i_lin(self, genomes, config):
+        # single process
+        for genome_id, genome in genomes:
+            # net = RecurrentNet.create(genome, config,1)
+            net = neat.nn.FeedForwardNetwork.create(genome, config)
+            genome.fitness = BuckClass.fitness_buck_l1a_5i_lin(self, net)
+
+    def fitness_buck_l1a_5i_lin(self, net):
+        """
+        Función que evalúa el fitness del fenotipo producido  dada una cierta ANN
+        :param net:
+        :return fitness: El fitness se calcula como 1/e**(-error_total). De esta forma cuando
+        el error total es cero el fitness es 1 y conforme aumenta el fitness
+        disminuye tendiendo a cero cuando el error tiende infinito
+        """
+        vout = self.run_buck_simulation_l1a_5i(net)[1]
+        error = (vout - self.target_vout)
+        error[0:self.steady] = 0
+        error = np.greater(error, self.tolerancia) * (self.penalty - 1) * error + error
+        error_tot = error.sum() / self.steps
+        return np.exp(-error_tot)
+
+    # Graficado de los resultados
+    def plot_respuesta_buck_l1a_5i_lin(self, net, tinic=0, tfinal=None, view=False, filename='salida.svg'):
+        simul_results = self.run_buck_simulation_l1a_5i(net)
+        self.plot_respuesta_buck_l1(simul_results, tinic, tfinal, view, filename)
+
 
     # --------------------------------------------------------------------------------- #
     # -------------------------- Level 1a - l1a_5i_pid------------------------------------ #
