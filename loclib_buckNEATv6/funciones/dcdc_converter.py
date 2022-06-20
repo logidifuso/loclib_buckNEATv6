@@ -596,7 +596,7 @@ class BuckClass:
 
     # ---------------------------------------------------------------------------------- #
     # ----------------------- Level 1a - l1a_7i_lin    --------------------------------- #
-    # ---------------------------------------------------------------------------------- #
+    # ---------------------------------------------------------------- ------------------ #
     def eval_genomes_mp_buck_l1a_7i_lin(self, genomes, config):
 
         net = neat.nn.FeedForwardNetwork.create(genomes, config)
@@ -679,7 +679,7 @@ class BuckClass:
             tfinal = len(simul_results[0])
 
         simul_lenght = len(simul_results[0])
-        t = np.linspace(0, simul_lenght, simul_lenght)
+        t = np.linspace(0, simul_lenght-1, simul_lenght)
 
         fig, axs = plt.subplots(4, figsize=(18, 18))
         fig.suptitle('Evolución temporal')
