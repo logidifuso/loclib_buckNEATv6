@@ -148,6 +148,21 @@ class BuckClass:
             secuencia[i + self.steady] = nominal_val + ampl * m.sin(2 * m.pi * freq * (i / 10 ** 6))
         return secuencia
 
+    def func_sequence_barridof_inverso(self, vals):
+        nominal_val = vals[0]
+        ampl = vals[1]
+        f_inic = vals[2]
+        f_fin = vals[3]
+
+        secuencia = np.empty(self.steps + self.steady)
+        secuencia[:self.steady] = nominal_val
+
+        for i in range(self.steps):
+            freq = f_inic * np.exp(np.log(f_fin/f_inic) * (i/self.steps)**5 )
+            secuencia[i + self.steady] = nominal_val + ampl * m.sin(2 * m.pi * freq * (i / 10 ** 6))
+        return secuencia
+
+
 #   -----------------------------------------------------------------------------------
 #   Métodos de simulación y evaluación del fitness
 #   -----------------------------------------------------------------------------------
