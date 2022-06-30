@@ -163,6 +163,27 @@ class BuckClass:
         return secuencia
 
 
+    def func_sequence_escalon(self, vals):
+        min_val = vals[0]
+        max_val = vals[1]
+
+        t_interval = int(self.steps / 5)
+        rise_edge1 = self.steady + t_interval
+        fall_edge1 = rise_edge1 + t_interval
+        rise_edge2 = fall_edge1 + t_interval
+        fall_edge2 = rise_edge2 + t_interval
+
+        secuencia = np.empty(self.steps + self.steady)
+
+        secuencia[:rise_edge1] = max_val
+        secuencia[rise_edge1:fall_edge1] = min_val
+        secuencia[fall_edge1:rise_edge2] = max_val
+        secuencia[rise_edge2:fall_edge2] = min_val
+        secuencia[fall_edge2:] = max_val
+
+        return secuencia
+
+
 #   -----------------------------------------------------------------------------------
 #   Métodos de simulación y evaluación del fitness
 #   -----------------------------------------------------------------------------------
